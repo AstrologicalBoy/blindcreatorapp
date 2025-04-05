@@ -69,7 +69,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="dark:bg-darkMainBg min-h-[100dvh] py-12 px-5">
+      <div className="dark:bg-darkMainBg min-h-screen py-12 px-5">
         <h1 className="text-center text-4xl dark:text-darkTextColor1 mb-5">Carrito de compras</h1>
         <IsClient>
           {cart.length > 0 && cart.map((product) => (
