@@ -1,10 +1,9 @@
-import { users } from "@/app/utils/fake_db";
 import { cookies } from "next/headers";
 
 export const POST = async (request: Request) => {
     const data = await request.json();
     const cookieStore = await cookies();
-    if(data.email === users[0].email && data.password === users[0].password) {
+    if(data.email === "admin@admin.com" && data.password === "12345678") {
         cookieStore.set("login", "true");
         return new Response(JSON.stringify({ success: true }), {
             headers: {
