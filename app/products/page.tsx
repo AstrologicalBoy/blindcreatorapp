@@ -43,7 +43,7 @@ const Page = ({ searchParams }: { searchParams: Promise<{ category?: string, pag
     const totalPages = products.data && Math.ceil(products.data.length / resultsPerPage);
 
     return (
-        <div className="dark:bg-darkMainBg pt-10">
+        <div className="dark:bg-darkMainBg pt-10 min-h-screen">
             <h1 className="text-center text-4xl dark:text-darkTextColor1 mb-5">Productos disponibles</h1>
             <div className="p-4">
                 <form method="GET" action={"/products"} className="flex flex-col md:flex-row justify-center gap-3">
