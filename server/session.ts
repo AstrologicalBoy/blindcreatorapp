@@ -4,7 +4,7 @@ type FormFields = {
 }
 
 export const login = async(data: FormFields) => {
-    const query = await fetch("/app/api/login", {
+    const query = await fetch("/api/login", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -16,6 +16,6 @@ export const login = async(data: FormFields) => {
 }
 
 export const logout = async () => {
-    const query = await fetch("/app/api/logout");
+    const query = await fetch("/api/logout");
     return query.json();
 }
