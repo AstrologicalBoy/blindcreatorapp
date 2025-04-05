@@ -44,7 +44,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="min-h-dvh flex justify-center items-center bg-lightMainBg dark:bg-darkMainBg transition-all duration-300">
+            <div className="min-h-[100dvh] flex justify-center items-center bg-lightMainBg dark:bg-darkMainBg transition-all duration-300">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="w-3/4 md:w-2/4 lg:w-1/3 bg-lightScreenBg dark:bg-darkScreenBg rounded-xl p-8 shadow-md dark:shadow-darkKey2Bg/20"
