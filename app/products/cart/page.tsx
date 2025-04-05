@@ -8,6 +8,7 @@ import Link from "next/link";
 import IsClient from "@/components/IsClient";
 import { useMutation } from "@tanstack/react-query";
 import { Heart, Minus, Plus, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 const Page = () => {
 
@@ -73,7 +74,7 @@ const Page = () => {
         <IsClient>
           {cart.length > 0 && cart.map((product) => (
             <div key={product.id} className={`relative dark:bg-darkKeypadBg p-5 rounded-md shadow-md flex flex-col md:flex-row gap-5 justify-center items-center mb-5`}>
-              <img className="max-w-[200px]" src={product.image} alt="product-image" />
+              <Image className="h-[200px] w-auto" src={product.image} alt="product-image" width={200} height={300} />
               <div>
                 <Link prefetch href={`/products/${product.id}`}>
                   <h2 className="dark:text-white font-bold line-clamp-1">{product.name}</h2>

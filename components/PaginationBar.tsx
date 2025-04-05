@@ -1,7 +1,7 @@
 import { useAppContext } from '@/app/contexts/context';
 import { ProductType } from '@/types/types';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const PaginationBar = ({ products, filter, page }: { products: ProductType[], filter: string | undefined, page: number }) => {
     const [paginate, setPaginate] = useState(page ?? 1);
@@ -14,7 +14,7 @@ const PaginationBar = ({ products, filter, page }: { products: ProductType[], fi
         return +a + +1;
     }
 
-    let pages = [];
+    const pages = [];
 
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);

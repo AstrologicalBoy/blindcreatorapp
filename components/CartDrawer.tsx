@@ -49,18 +49,10 @@ const CartDrawer = () => {
     }
   })
 
-  // Eliminar todo del carrito
-  const { mutate: cleanCart } = useMutation({
-    mutationFn: async (id: number) => {
-      setCart([]);
-      console.log(cart);
-    }
-  })
-
   // Favoritos ----------------------------------------------------------
   const { mutate: addProductToFavorites } = useMutation({
-    mutationFn: async (id: number) => {
-      setFavorites([...favorites, { id }]);
+    mutationFn: async (id_product: number) => {
+      setFavorites([...favorites, { id: id_product }]);
     }
   })
 
@@ -79,7 +71,7 @@ const CartDrawer = () => {
         {cart.length > 0 && cart.map((product) => (
           <div key={product.id} className={`relative bg-gray-50 dark:bg-darkKeypadBg p-5 rounded-md shadow-md flex justify-center items-center mb-5`}>
             <div>
-              <Link prefetch href={`/products/${product.id}`}>
+              <Link onClick={() => showDrawer && setShowDrawer(false)} prefetch href={`/products/${product.id}`}>
                 <h2 className="dark:text-white font-bold line-clamp-1">{product.name}</h2>
               </Link>
               <p className="text-center mt-5 text-sm dark:text-darkTextColor1">$<span className="text-lg">{product.price}</span></p>

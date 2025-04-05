@@ -6,13 +6,14 @@ import { getAllProducts } from "@/app/utils/products";
 import { ProductType } from "@/types/types";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Heart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
 
 const Page = () => {
 
-  const { favorites, setFavorites } = useAppContext();
+  const { showDrawer, setShowDrawer, favorites, setFavorites } = useAppContext();
 
   useEffect(() => {
     saveFavorites(favorites);
@@ -44,9 +45,9 @@ const Page = () => {
                 if (isInFavorites(favorites, product.id).length > 0) {
                   return (
                     <div key={product.id} className="relative dark:bg-darkKeypadBg px-5 py-10 rounded-md shadow-md flex flex-col justify-center items-center">
-                      <Link prefetch href={`/products/${product.id}`} className="text-center">
+                      <Link onClick={() => setShowDrawer(!showDrawer)} prefetch href={`/products/${product.id}`} className="text-center">
                         <div>
-                          <img src={product.image} alt={`${product.id}-image`} className="h-[200px] mx-auto mb-4" />
+                          <Image width={200} height={300} src={product.image} alt={`${product.id}-image`} className="h-[200px] w-auto mx-auto mb-4" />
                         </div>
                         <p className="dark:text-white font-bold line-clamp-1" title={product.title}>{product.title}</p>
                         <p className="dark:text-white text-sm">$<span className="text-xl">{product.price}</span></p>

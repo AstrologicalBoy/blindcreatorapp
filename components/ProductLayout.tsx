@@ -2,24 +2,20 @@
 
 import { getProductById, getProductsByCategory } from "@/app/utils/products"
 import { useQuery, useMutation } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useAppContext } from "@/app/contexts/context"
 import { CartType } from "@/types/types"
 import { ProductType } from "@/types/types"
-import { decreaseQuantity, getCartWithoutItem, getCart, getIndexOfItem, increaseQuantity, saveCart, isInCart } from "@/app/utils/cart"
+import { decreaseQuantity, getCartWithoutItem, getIndexOfItem, increaseQuantity, saveCart, isInCart } from "@/app/utils/cart"
 import { getFavoritesListWithoutItem, isInFavorites, saveFavorites } from "@/app/utils/favorites"
 import { Heart, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react"
 import { GridLoader } from "react-spinners"
+import Image from "next/image"
 
 // Component
 const ProductLayout = ({ productId }: { productId: string }) => {
-    const { cart, favorites, showDrawer, setShowDrawer, setCart, setFavorites } = useAppContext();
-
-    useEffect(() => {
-        setShowDrawer(false);
-    }, [])
+    const { cart, favorites, showDrawer, setCart, setShowDrawer, setFavorites } = useAppContext();
 
     useEffect(() => {
         saveCart(cart);
@@ -29,14 +25,13 @@ const ProductLayout = ({ productId }: { productId: string }) => {
         saveFavorites(favorites);
     }, [favorites])
 
-    // Router
-    const router = useRouter();
+
 
     // Tanstack
 
     // Queries
-    const { data: product, isLoading: loadingProduct, isError: errorLoadingProduct, error: productError, isRefetching: productRefetching } = useQuery({ queryKey: ["get-product"], queryFn: async () => getProductById(productId) });
-    const { data: relatedProducts, isLoading: loadingRelatedProducts, isError: errorLoadingRelatedProducts, error: relatedProductsError } = useQuery({
+    const { data: product, isLoading: loadingProduct, isError: errorLoadingProduct, isRefetching: productRefetching } = useQuery({ queryKey: ["get-product"], queryFn: async () => getProductById(productId) });
+    const { data: relatedProducts, isLoading: loadingRelatedProducts } = useQuery({
         queryKey: ["get-related-products"],
         queryFn: () => product && getProductsByCategory(product.category),
         enabled: !!product
@@ -77,18 +72,10 @@ const ProductLayout = ({ productId }: { productId: string }) => {
         }
     })
 
-    // Eliminar todo del carrito
-    const { mutate: cleanCart } = useMutation({
-        mutationFn: async (id: number) => {
-            setCart([]);
-            console.log(cart);
-        }
-    })
-
     // Favoritos ----------------------------------------------------------
     const { mutate: addProductToFavorites } = useMutation({
-        mutationFn: async (id: number) => {
-            setFavorites([...favorites, { id }]);
+        mutationFn: async (id_product: number) => {
+            setFavorites([...favorites, { id: id_product }]);
         }
     })
 
@@ -111,7 +98,7 @@ const ProductLayout = ({ productId }: { productId: string }) => {
             {product && !productRefetching &&
                 <div className="dark:bg-darkMainBg p-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8 items-center w-5/6 md:w-3/5 mx-auto">
-                        <img className="md:w-full mx-auto min-w-[200px]" src={product.image} />
+                        <Image width={200} height={300} className="md:w-full mx-auto min-w-[200px]" alt="product-image" src={product.image} />
 
                         <div className="relative flex flex-col justify-center items-start py-10">
                             <h1 className="text-center md:text-left text-4xl dark:text-darkTextColor1 mb-5">{product.title}</h1>
@@ -176,9 +163,9 @@ const ProductLayout = ({ productId }: { productId: string }) => {
                                 if (product.id !== relatedProduct.id) {
                                     return (
                                         <div key={`related/${relatedProduct.id}`} className="relative bg-gray-50 dark:bg-darkKeypadBg px-5 py-10 rounded-md shadow-md flex flex-col justify-center items-center">
-                                            <Link prefetch href={`/products/${relatedProduct.id}`}>
+                                            <Link onClick={() => showDrawer && setShowDrawer(false)} prefetch href={`/products/${relatedProduct.id}`}>
                                                 <div>
-                                                    <img src={relatedProduct.image} alt={`${relatedProduct.id}-image`} className="h-[200px] mx-auto mb-4" />
+                                                    <Image width={200} height={300} src={relatedProduct.image} alt={`${relatedProduct.id}-image`} className="h-[200px] w-auto mx-auto mb-4" />
                                                 </div>
                                                 <p className="text-center dark:text-white font-bold line-clamp-1" title={relatedProduct.title}>{relatedProduct.title}</p>
                                                 <p className="text-center dark:text-white text-sm">$<span className="text-xl">{relatedProduct.price}</span></p>

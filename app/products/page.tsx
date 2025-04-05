@@ -5,7 +5,6 @@ import { getAllProducts, getProductsByCategory } from "@/app/utils/products";
 import { useQuery } from "@tanstack/react-query";
 import PaginationBar from "@/components/PaginationBar";
 import PaginationProducts from "@/components/PaginationProducts";
-import { useAppContext } from "../contexts/context";
 import { GridLoader } from "react-spinners";
 import IsClient from "@/components/IsClient";
 
@@ -20,13 +19,6 @@ const Page = ({ searchParams }: { searchParams: Promise<{ category?: string, pag
 
     const [filter, setFilter] = useState(category ?? "all products");
     const [paginate, setPaginate] = useState(page ?? 1);
-
-    
-    const { setShowDrawer } = useAppContext();
-    
-    useEffect(() => {
-        setShowDrawer(false);
-    }, [])
 
     useEffect(() => {
         if (page !== undefined) {

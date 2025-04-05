@@ -37,7 +37,7 @@ const Login = () => {
             
         } catch(error) {
             setError("root", {
-                message: "Something went wrong, please try again!"
+                message: `Something went wrong, please try again!: ${error}`
             })
         }
     }

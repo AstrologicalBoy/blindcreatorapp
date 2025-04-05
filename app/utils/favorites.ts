@@ -1,5 +1,4 @@
 import { FavoriteType } from "@/types/types"
-import { useMutation } from "@tanstack/react-query";
 
 const favoritesKey = "favorites"
 
