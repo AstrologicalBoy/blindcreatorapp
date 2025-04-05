@@ -1,4 +1,4 @@
-import { users } from "@/app/utils/fake_db";
+import { users } from "/app/utils/fake_db";
 import { cookies } from "next/headers";
 
 export const POST = async (request: Request) => {
