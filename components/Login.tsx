@@ -51,7 +51,7 @@ const Login = () => {
                 >
                     {errors.root?.message && <span className="block text-xs text-center text-red-600 mb-1.5">{errors.root.message}</span>}
                     <div className="flex flex-col">
-                        <h2 className="mb-5 text-4xl text-center font-bold text-lightTextColor1 dark:text-darkKey2Shadow">Login</h2>
+                        <h2 className="mb-5 text-4xl text-center font-bold text-lightTextColor1 dark:text-darkKey2Shadow">Logiiiin</h2>
                         <div className="mb-3">
                             <input {...register("email")} type="email" placeholder="Email" className="w-full px-3 py-1.5 rounded-sm dark:bg-darkMainBg dark:text-darkTextColor1" />
                             {errors.email?.message && <span className="block text-xs text-right text-red-600 dark:text-darkTextColor1 mt-1.5">{errors.email.message}</span>}
