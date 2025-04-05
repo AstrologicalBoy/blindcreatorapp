@@ -63,7 +63,7 @@ const Page = ({ searchParams }: { searchParams: Promise<{ category?: string, pag
 
             {products.isLoading && products.isFetching &&
                 <IsClient>
-                    <div className="flex justify-center items-center">
+                    <div className="min-h-screen flex justify-center items-center">
                         <GridLoader color={'#bc15f4'} />
                     </div>
                 </IsClient>
